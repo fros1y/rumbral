@@ -33,7 +33,7 @@ pub mod rex_assets;
 pub mod trigger_system;
 
 pub mod camera;
-
+pub mod lighting_system;
 
 
 #[derive(PartialEq, Copy, Clone)]
@@ -82,7 +82,8 @@ impl State {
         hunger.run_now(&self.ecs);
         let mut particles = particle_system::ParticleSpawnSystem{};
         particles.run_now(&self.ecs);
-
+        let mut lighting = lighting_system::LightingSystem{};
+        lighting.run_now(&self.ecs);
         self.ecs.maintain();
     }
 }
@@ -297,7 +298,7 @@ impl State {
         {
             let mut worldmap_resource = self.ecs.write_resource::<Map>();
             current_depth = worldmap_resource.depth;
-            *worldmap_resource = Map::new_map_rooms_and_corridors(current_depth + 1);
+            *worldmap_resource = Map::big_empty_room(current_depth + 1, 100, 80);
             worldmap = worldmap_resource.clone();
         }
 
@@ -349,7 +350,7 @@ impl State {
         let worldmap;
         {
             let mut worldmap_resource = self.ecs.write_resource::<Map>();
-            *worldmap_resource = Map::new_map_rooms_and_corridors(1);
+            *worldmap_resource = Map::new_map_rooms_and_corridors(1, 100, 80);
             worldmap = worldmap_resource.clone();
         }
 
@@ -430,7 +431,7 @@ fn main() -> rltk::BError {
     gs.ecs.insert(SimpleMarkerAllocator::<SerializeMe>::new());
 
     //let map : Map = Map::new_map_rooms_and_corridors(1);
-    let map = Map::big_empty_room(1);
+    let map = Map::big_empty_room(1, 100, 80);
     let (player_x, player_y) = map.rooms[0].center();
 
     let player_entity = spawner::player(&mut gs.ecs, player_x, player_y);

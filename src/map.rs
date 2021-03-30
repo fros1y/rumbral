@@ -86,21 +86,22 @@ impl Map {
         }
     }
 
-    pub fn big_empty_room(new_depth: i32) -> Map {
+    pub fn big_empty_room(new_depth: i32, width: i32, height: i32) -> Map {
+        let map_tile_count = (width*height) as usize;
         let mut map = Map {
-            tiles: vec![TileType::Wall; MAPCOUNT],
+            tiles: vec![TileType::Wall; map_tile_count],
             rooms: Vec::new(),
-            width: MAPWIDTH as i32,
-            height: MAPHEIGHT as i32,
-            revealed_tiles: vec![false; MAPCOUNT],
-            visible_tiles: vec![false; MAPCOUNT],
-            blocked: vec![false; MAPCOUNT],
-            tile_content: vec![Vec::new(); MAPCOUNT],
+            width: width,
+            height: height,
+            revealed_tiles: vec![false; map_tile_count],
+            visible_tiles: vec![false; map_tile_count],
+            blocked: vec![false; map_tile_count],
+            tile_content: vec![Vec::new(); map_tile_count],
             depth: new_depth,
             bloodstains: HashSet::new(),
-            light: Vec::new()
+            light: vec![rltk::RGB::from_f32(0.0, 0.0, 0.0); map_tile_count]
         };
-        let room = Rect::new(0, 0, MAPWIDTH as i32 - 2, MAPHEIGHT as i32 - 2);
+        let room = Rect::new(0, 0, width - 2, height - 2);
         map.apply_room_to_map(&room);
         map.rooms.push(room);
         return map;
@@ -108,20 +109,22 @@ impl Map {
 
     /// Makes a new map using the algorithm from http://rogueliketutorials.com/tutorials/tcod/part-3/
     /// This gives a handful of random rooms and corridors joining them together.
-    pub fn new_map_rooms_and_corridors(new_depth: i32) -> Map {
+    pub fn new_map_rooms_and_corridors(new_depth: i32, width: i32, height: i32) -> Map {
+        let map_tile_count = (width*height) as usize;
         let mut map = Map {
-            tiles: vec![TileType::Wall; MAPCOUNT],
+            tiles: vec![TileType::Wall; map_tile_count],
             rooms: Vec::new(),
-            width: MAPWIDTH as i32,
-            height: MAPHEIGHT as i32,
-            revealed_tiles: vec![false; MAPCOUNT],
-            visible_tiles: vec![false; MAPCOUNT],
-            blocked: vec![false; MAPCOUNT],
-            tile_content: vec![Vec::new(); MAPCOUNT],
+            width: width,
+            height: height,
+            revealed_tiles: vec![false; map_tile_count],
+            visible_tiles: vec![false; map_tile_count],
+            blocked: vec![false; map_tile_count],
+            tile_content: vec![Vec::new(); map_tile_count],
             depth: new_depth,
             bloodstains: HashSet::new(),
-            light: Vec::new()
+            light: vec![rltk::RGB::from_f32(0.0, 0.0, 0.0); map_tile_count]
         };
+       
 
         const MAX_ROOMS: i32 = 30;
         const MIN_SIZE: i32 = 6;

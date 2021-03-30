@@ -1,5 +1,5 @@
 use specs::prelude::*;
-use super::{Viewshed, Position, Map, LightSource};
+use super::{Viewshed, Position, Map, LightSourceState};
 use rltk::RGB;
 
 pub struct LightingSystem {}
@@ -9,7 +9,7 @@ impl<'a> System<'a> for LightingSystem {
     type SystemData = ( WriteExpect<'a, Map>,
                         ReadStorage<'a, Viewshed>,
                         ReadStorage<'a, Position>,
-                        ReadStorage<'a, LightSource>);
+                        ReadStorage<'a, LightSourceState>);
 
     fn run(&mut self, data : Self::SystemData) {
         let (mut map, viewshed, positions, lighting) = data;
@@ -21,7 +21,7 @@ impl<'a> System<'a> for LightingSystem {
 
         for (viewshed, pos, light) in (&viewshed, &positions, &lighting).join() {
             let light_point = rltk::Point::new(pos.x, pos.y);
-            let range_f = light.range as f32;
+            let range_f = light.brightness as f32;
             for t in viewshed.visible_tiles.iter() {
                 if t.x > 0 && t.x < map.width && t.y > 0 && t.y < map.height {
                     let idx = map.xy_idx(t.x, t.y);

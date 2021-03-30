@@ -10,12 +10,11 @@ impl<'a> System<'a> for LightSourceSystem {
         WriteStorage<'a, LightSourceState>,
         ReadExpect<'a, Entity>, // The player
         ReadExpect<'a, RunState>,
-        WriteStorage<'a, SufferDamage>,
         WriteExpect<'a, GameLog>,
     );
 
     fn run(&mut self, data: Self::SystemData) {
-        let (entities, mut lightsource_state, player_entity, runstate, mut inflict_damage, mut log) =
+        let (entities, mut lightsource_state, player_entity, runstate,  mut log) =
             data;
 
         for (entity, mut state) in (&entities, &mut lightsource_state).join() {

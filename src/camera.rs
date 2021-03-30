@@ -125,6 +125,8 @@ fn get_tile_glyph(idx: usize, map : &Map) -> (rltk::FontCharType, RGB, RGB) {
     if !map.visible_tiles[idx] {
         fg = fg.to_greyscale();
         bg = RGB::from_f32(0., 0., 0.); // Don't show stains out of visual range
+    } else {
+      fg = fg * map.light[idx];
     }
 
     (glyph, fg, bg)
