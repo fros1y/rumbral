@@ -1,7 +1,7 @@
 use rltk::{ RGB, Rltk, Point, VirtualKeyCode };
 use specs::prelude::*;
 use super::{CombatStats, Player, gamelog::GameLog, Map, Name, Position, State, InBackpack,
-    Viewshed, RunState, Equipped, HungerClock, HungerState, rex_assets::RexAssets,
+    Viewshed, RunState, Equipped, LightSourceState, rex_assets::RexAssets,
     Hidden };
 
 pub fn draw_ui(ecs: &World, ctx : &mut Rltk) {
@@ -9,19 +9,15 @@ pub fn draw_ui(ecs: &World, ctx : &mut Rltk) {
 
     let combat_stats = ecs.read_storage::<CombatStats>();
     let players = ecs.read_storage::<Player>();
-    let hunger = ecs.read_storage::<HungerClock>();
-    for (_player, stats, hc) in (&players, &combat_stats, &hunger).join() {
+    let ls_state = ecs.read_storage::<LightSourceState>();
+    for (_player, stats, ls) in (&players, &combat_stats, &ls_state).join() {
         let health = format!(" HP: {} / {} ", stats.hp, stats.max_hp);
         ctx.print_color(12, 43, RGB::named(rltk::YELLOW), RGB::named(rltk::BLACK), &health);
 
         ctx.draw_bar_horizontal(28, 43, 51, stats.hp, stats.max_hp, RGB::named(rltk::RED), RGB::named(rltk::BLACK));
+        ctx.print_color(71, 32, RGB::named(rltk::ORANGE), RGB::named(rltk::BLACK), format!("Light: {}", ls.fuel));
 
-        match hc.state {
-            HungerState::WellFed => ctx.print_color(71, 42, RGB::named(rltk::GREEN), RGB::named(rltk::BLACK), "Well Fed"),
-            HungerState::Normal => {}
-            HungerState::Hungry => ctx.print_color(71, 42, RGB::named(rltk::ORANGE), RGB::named(rltk::BLACK), "Hungry"),
-            HungerState::Starving => ctx.print_color(71, 42, RGB::named(rltk::RED), RGB::named(rltk::BLACK), "Starving"),
-        }
+
     }
 
     let map = ecs.fetch::<Map>();

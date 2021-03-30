@@ -29,7 +29,7 @@ use inventory_system::{ ItemCollectionSystem, ItemUseSystem, ItemDropSystem, Ite
 pub mod saveload_system;
 pub mod random_table;
 pub mod particle_system;
-pub mod hunger_system;
+pub mod lightsource_system;
 pub mod rex_assets;
 pub mod trigger_system;
 
@@ -77,7 +77,7 @@ impl State {
         drop_items.run_now(&self.ecs);
         let mut item_remove = ItemRemoveSystem{};
         item_remove.run_now(&self.ecs);
-        let mut hunger = hunger_system::HungerSystem{};
+        let mut hunger = lightsource_system::LightSourceSystem{};
         hunger.run_now(&self.ecs);
         let mut particles = particle_system::ParticleSpawnSystem{};
         particles.run_now(&self.ecs);
@@ -429,8 +429,8 @@ fn main() -> rltk::BError {
     gs.ecs.register::<DefenseBonus>();
     gs.ecs.register::<WantsToRemoveItem>();
     gs.ecs.register::<ParticleLifetime>();
-    gs.ecs.register::<HungerClock>();
-    gs.ecs.register::<ProvidesFood>();
+    gs.ecs.register::<LightSourceState>();
+    gs.ecs.register::<ProvidesLight>();
     gs.ecs.register::<MagicMapper>();
     gs.ecs.register::<Hidden>();
     gs.ecs.register::<EntryTrigger>();

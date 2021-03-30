@@ -1,6 +1,6 @@
 use specs::prelude::*;
 use super::{CombatStats, WantsToMelee, Name, SufferDamage, gamelog::GameLog, MeleePowerBonus, DefenseBonus, Equipped,
-    particle_system::ParticleBuilder, Position, HungerClock, HungerState};
+    particle_system::ParticleBuilder, Position, LightSourceState};
 
 pub struct MeleeCombatSystem {}
 
@@ -17,7 +17,7 @@ impl<'a> System<'a> for MeleeCombatSystem {
                         ReadStorage<'a, Equipped>,
                         WriteExpect<'a, ParticleBuilder>,
                         ReadStorage<'a, Position>,
-                        ReadStorage<'a, HungerClock>
+                        ReadStorage<'a, LightSourceState>
                       );
 
     fn run(&mut self, data : Self::SystemData) {
@@ -33,12 +33,12 @@ impl<'a> System<'a> for MeleeCombatSystem {
                     }
                 }
 
-                let hc = hunger_clock.get(entity);
-                if let Some(hc) = hc {
-                    if hc.state == HungerState::WellFed {
-                        offensive_bonus += 1;
-                    }
-                }
+                // let hc = hunger_clock.get(entity);
+                // if let Some(hc) = hc {
+                //     if hc.state == HungerState::WellFed {
+                //         offensive_bonus += 1;
+                //     }
+                // }
 
                 let target_stats = combat_stats.get(wants_melee.target).unwrap();
                 if target_stats.hp > 0 {
