@@ -159,7 +159,8 @@ pub struct ParticleLifetime {
 #[derive(Component, Serialize, Deserialize, Copy, Clone, PartialEq)]
 pub struct LightSourceState {
     pub fuel: i32,
-    pub brightness: i32
+    pub brightness: i32,
+    pub color : RGB
 }
 
 #[derive(Component, Debug, Serialize, Deserialize, Clone)]

@@ -27,6 +27,7 @@ pub struct Map {
     pub blocked: Vec<bool>,
     pub depth: i32,
     pub bloodstains: HashSet<usize>,
+    pub light: Vec<rltk::RGB>,
 
     #[serde(skip_serializing)]
     #[serde(skip_deserializing)]
@@ -97,6 +98,7 @@ impl Map {
             tile_content: vec![Vec::new(); MAPCOUNT],
             depth: new_depth,
             bloodstains: HashSet::new(),
+            light: Vec::new()
         };
         let room = Rect::new(0, 0, MAPWIDTH as i32 - 2, MAPHEIGHT as i32 - 2);
         map.apply_room_to_map(&room);
@@ -118,6 +120,7 @@ impl Map {
             tile_content: vec![Vec::new(); MAPCOUNT],
             depth: new_depth,
             bloodstains: HashSet::new(),
+            light: Vec::new()
         };
 
         const MAX_ROOMS: i32 = 30;
