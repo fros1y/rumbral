@@ -1,5 +1,5 @@
 [package]
-name = "Umbral"
+name = "umbral"
 version = "0.1.0"
 authors = ["martin@galese.net"]
 edition = "2018"
