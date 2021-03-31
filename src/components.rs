@@ -157,6 +157,22 @@ pub struct ParticleLifetime {
 }
 
 #[derive(Component, Serialize, Deserialize, Copy, Clone, PartialEq)]
+pub struct PhotoPhobia {
+    pub current: f32,
+    pub sensitivity: f32,
+    pub recovery_rate: f32,
+    pub tolerance: f32
+}
+
+#[derive(Component, Serialize, Deserialize, Copy, Clone, PartialEq)]
+pub struct PhotoPhilia {
+    pub current: f32,
+    pub max: f32,
+    pub sensitivity: f32,
+    pub decay_rate: f32
+}
+
+#[derive(Component, Serialize, Deserialize, Copy, Clone, PartialEq)]
 pub struct LightSourceState {
     pub fuel: i32,
     pub brightness: i32,

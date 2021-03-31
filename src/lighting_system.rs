@@ -29,6 +29,7 @@ impl<'a> System<'a> for LightingSystem {
                     let intensity = (range_f - distance) / range_f;
 
                     map.light[idx] = map.light[idx] + (light.color * intensity);
+                    map.light_intensity[idx] = map.light_intensity[idx] + intensity;
                 }
             }
         }

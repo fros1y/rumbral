@@ -34,6 +34,7 @@ pub mod trigger_system;
 
 pub mod camera;
 pub mod lighting_system;
+pub mod photovore_system;
 
 
 #[derive(PartialEq, Copy, Clone)]
@@ -84,6 +85,9 @@ impl State {
         particles.run_now(&self.ecs);
         let mut lighting = lighting_system::LightingSystem{};
         lighting.run_now(&self.ecs);
+        let mut photophobia = photovore_system::PhotoPhobiaSystem{};
+        photophobia.run_now(&self.ecs);
+        
         self.ecs.maintain();
     }
 }

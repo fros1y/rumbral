@@ -28,6 +28,7 @@ pub struct Map {
     pub depth: i32,
     pub bloodstains: HashSet<usize>,
     pub light: Vec<rltk::RGB>,
+    pub light_intensity: Vec<f32>,
 
     #[serde(skip_serializing)]
     #[serde(skip_deserializing)]
@@ -99,7 +100,8 @@ impl Map {
             tile_content: vec![Vec::new(); map_tile_count],
             depth: new_depth,
             bloodstains: HashSet::new(),
-            light: vec![rltk::RGB::from_f32(0.0, 0.0, 0.0); map_tile_count]
+            light: vec![rltk::RGB::from_f32(0.0, 0.0, 0.0); map_tile_count],
+            light_intensity: vec![0.0; map_tile_count]
         };
         let room = Rect::new(0, 0, width - 2, height - 2);
         map.apply_room_to_map(&room);
@@ -122,7 +124,8 @@ impl Map {
             tile_content: vec![Vec::new(); map_tile_count],
             depth: new_depth,
             bloodstains: HashSet::new(),
-            light: vec![rltk::RGB::from_f32(0.0, 0.0, 0.0); map_tile_count]
+            light: vec![rltk::RGB::from_f32(0.0, 0.0, 0.0); map_tile_count],
+            light_intensity: vec![0.0; map_tile_count]
         };
        
 

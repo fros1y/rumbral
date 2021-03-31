@@ -22,7 +22,7 @@ pub fn player(ecs : &mut World, player_x : i32, player_y : i32) -> Entity {
         .with(Viewshed{ visible_tiles : Vec::new(), range: 8, dirty: true })
         .with(Name{name: "Player".to_string() })
         .with(CombatStats{ max_hp: 30, hp: 30, defense: 2, power: 5 })
-        .with(LightSourceState{ fuel: 1000, brightness: 10, color: RGB::named(rltk::LIGHTYELLOW) })
+        .with(LightSourceState{ fuel: 1000, brightness: 20, color: RGB::named(rltk::LIGHTYELLOW) })
         .marked::<SimpleMarker<SerializeMe>>()
         .build()
 }
