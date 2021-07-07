@@ -45,7 +45,7 @@ pub fn save_game(ecs : &mut World) {
             AreaOfEffect, Confusion, ProvidesHealing, InBackpack, WantsToPickupItem, WantsToUseItem,
             WantsToDropItem, SerializationHelper, Equippable, Equipped, MeleePowerBonus, DefenseBonus,
             WantsToRemoveItem, ParticleLifetime, LightSourceState, ProvidesLight, MagicMapper, Hidden,
-            EntryTrigger, EntityMoved, SingleActivation
+            EntryTrigger, EntityMoved, SingleActivation, PhotoPhobia
         );
     }
 

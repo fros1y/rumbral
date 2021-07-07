@@ -431,6 +431,7 @@ fn main() -> rltk::BError {
     gs.ecs.register::<EntryTrigger>();
     gs.ecs.register::<EntityMoved>();
     gs.ecs.register::<SingleActivation>();
+    gs.ecs.register::<PhotoPhobia>();
 
     gs.ecs.insert(SimpleMarkerAllocator::<SerializeMe>::new());
 
