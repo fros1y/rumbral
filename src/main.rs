@@ -450,7 +450,7 @@ fn main() -> rltk::BError {
     gs.ecs.insert(Point::new(player_x, player_y));
     gs.ecs.insert(player_entity);
     gs.ecs.insert(RunState::MainMenu{ menu_selection: gui::MainMenuSelection::NewGame });
-    gs.ecs.insert(gamelog::GameLog{ entries : vec!["Welcome to Rusty Roguelike".to_string()] });
+    gs.ecs.insert(gamelog::GameLog{ entries : vec!["Welcome to Rumbral".to_string()] });
     gs.ecs.insert(particle_system::ParticleBuilder::new());
     gs.ecs.insert(rex_assets::RexAssets::new());
 
